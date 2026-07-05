@@ -6,7 +6,7 @@ export default function RootLayout({ children }) {
     <html lang="fa-IR" dir="rtl">
       <body className="font-primary font-medium">
         <Header />
-        <main className="">{children}</main>
+        <main>{children}</main>
       </body>
     </html>
   );

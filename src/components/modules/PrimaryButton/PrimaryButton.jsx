@@ -26,7 +26,7 @@ export default function PrimaryButton({
     <Link
       href={href}
       className={clsx(
-        'font-primary group relative overflow-hidden rounded-full py-2 ps-12 pe-4 text-sm transition-all duration-350 hover:ps-4 hover:pe-12',
+        'font-primary group relative overflow-hidden rounded-full py-2 ps-12 pe-4 text-sm lg:text-base transition-all duration-350 hover:ps-4 hover:pe-12',
         variant === 'primary' ? 'bg-primary text-white' : 'hover:text-primary bg-white text-black',
         className
       )}
