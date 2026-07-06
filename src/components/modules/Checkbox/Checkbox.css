@@ -1,0 +1,11 @@
+#toggleHandle {
+  transform: translateX(-24px);
+}
+
+#checkboxInput:checked + #toggleContainer {
+  background-color: #7fa69b;
+}
+
+#checkboxInput:checked + #toggleContainer #toggleHandle {
+  transform: translate(0);
+}
