@@ -17,13 +17,14 @@ export default function Home() {
   const textContainer = useRef(null);
   const line = useRef(null);
   const toggleContainer = useRef(null);
+  const lineContainer = useRef(null);
 
   useGSAP(() => {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: imgContainerRef.current,
         start: 'top top',
-        end: `bottom ${window.innerWidth <= 768 ? '180' : 'top'}`,
+        end: `bottom ${window.innerWidth < 767 ? '180' : 'top'}`,
         scrub: true,
         pin: true,
         markers: false,
@@ -45,6 +46,13 @@ export default function Home() {
         scrub: true,
         markers: false,
       },
+    });
+
+    // calculate the height of line contianer dynamically so the tip of the line always end at top of the toggle button section. no matter what is the viewport height.
+    const textContainerHeight = textContainer.current.scrollHeight;
+    const toggleContainerHeight = toggleContainer.current.scrollHeight;
+    gsap.set(lineContainer.current, {
+      height: textContainerHeight + toggleContainerHeight / 2 - 160,
     });
   });
 
@@ -71,12 +79,11 @@ export default function Home() {
               </div>
             </div>
           </div>
-
           <div
             ref={toggleContainer}
-            className="flex h-max items-center justify-center pt-20 text-center md:h-screen md:max-h-180 md:pt-0"
+            className="flex items-center justify-center text-center md:h-screen md:max-h-180"
           >
-            <div className="relative z-5 flex flex-col items-center gap-6 md:pt-30">
+            <div className="relative z-5 flex flex-col items-center gap-6 pt-20 md:p-0">
               <label className="flex items-center gap-5">
                 <p className="text-white">تعادل</p>
                 <Checkbox />
@@ -92,7 +99,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="absolute z-1 hidden h-150 w-full items-start md:flex md:h-255">
+        <div ref={lineContainer} className="absolute z-1 hidden w-full items-start md:flex">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="100%"
