@@ -36,7 +36,7 @@ export default function Home() {
           start: 'top bottom',
           end: 'center center',
           scrub: true,
-          markers: true,
+          markers: false,
         },
       });
 
