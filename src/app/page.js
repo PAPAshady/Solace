@@ -1,5 +1,5 @@
 'use client';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -13,6 +13,10 @@ export default function Home() {
   const container = useRef(null);
   const bannerTextContainer = useRef(null);
   const toggleSwitchContainer = useRef(null);
+  const [isCheckboxDisabled, setIsCheckboxDisabled] = useState(true);
+  const [isChecked, setIsChecked] = useState(false);
+
+  const onCheckedChange = (value) => setIsChecked(value);
 
   useGSAP(
     () => {
@@ -30,7 +34,7 @@ export default function Home() {
       // cross-fade images as user scrolss
       imgTl
         .to('#img1', { opacity: 0, duration: 1 })
-        .to(bannerTextContainer.current, { y: -100 }, 0.6)
+        .to(bannerTextContainer.current, { y: -150 }, 0.5)
         .to(toggleSwitchContainer.current, { y: 20 });
 
       const toggleSwitchTl = gsap.timeline({
@@ -38,15 +42,17 @@ export default function Home() {
           trigger: '#switchWrapper',
           start: 'center center',
           end: 'center center',
-          markers: false,
+          markers: true,
           toggleActions: 'play none reverse none',
+          onEnter: () => setIsCheckboxDisabled(false),
+          onEnterBack: () => setIsCheckboxDisabled(true),
         },
       });
 
       toggleSwitchTl
-        .to('#switchLabel', { x: -26, opacity: 1 })
-        .to('#switchButton', { x: 10, opacity: 1 }, 0)
-        .to('#fakeSwitchHandle', { x: -63 }, 0);
+        .to('#switchLabel', { x: -32, opacity: 1, ease: 'power1.inOut' })
+        .to('#switchButton', { x: 16, opacity: 1, ease: 'power1.inOut' }, 0)
+        .to('#fakeSwitchHandle', { x: -57, ease: 'power1.inOut' }, 0);
 
       const lineTl = gsap.timeline({
         scrollTrigger: {
@@ -113,7 +119,11 @@ export default function Home() {
                 id="fakeSwitchHandle"
               ></div>
               <div id="switchButton" className="translate-x-16.5 opacity-0">
-                <Checkbox />
+                <Checkbox
+                  disabled={isCheckboxDisabled}
+                  checked={isChecked}
+                  onChange={onCheckedChange}
+                />
               </div>
             </label>
             <p className="text-4xl leading-relaxed text-white lg:text-[42px]">
