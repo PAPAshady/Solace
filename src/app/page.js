@@ -42,10 +42,23 @@ export default function Home() {
           trigger: '#switchWrapper',
           start: 'center center',
           end: 'center center',
-          markers: true,
+          markers: false,
           toggleActions: 'play none reverse none',
           onEnter: () => setIsCheckboxDisabled(false),
           onEnterBack: () => setIsCheckboxDisabled(true),
+        },
+      });
+
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: '#toggleSwitchWrapper',
+          start: 'center center',
+          end: `${window.innerWidth <= 768 ? 'bottom+=170' : 'bottom+=100'} center`,
+          pin: true,
+          pinSpacing: false,
+          markers: true,
+          onLeave: () => setIsChecked(true),
+          onEnterBack: () => setIsChecked(false),
         },
       });
 
@@ -77,7 +90,7 @@ export default function Home() {
       const textContainerHeight = bannerTextContainer.current.scrollHeight;
       const toggleContainerHeight = toggleSwitchContainer.current.scrollHeight;
       gsap.set('#lineContainer', {
-        height: textContainerHeight + toggleContainerHeight / 2 - 130,
+        height: textContainerHeight + toggleContainerHeight / 2 - 140,
       });
     },
     { scope: container }
@@ -85,58 +98,6 @@ export default function Home() {
 
   return (
     <div ref={container} className="relative overflow-hidden">
-      <div className="absolute inset-0 z-2 container">
-        <div
-          ref={bannerTextContainer}
-          className="flex h-screen max-h-210 items-center justify-center text-white md:max-h-200"
-        >
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-20 lg:pt-40 xl:gap-0!">
-            <p className="font-secondary text-6xl leading-tight min-[480px]:text-7xl min-[1200px]:text-8xl! min-[1440px]:text-[110px]! lg:w-[50%] lg:text-[85px]">
-              هر تغییر بزرگی، <br className="hidden lg:block" /> از یک قدم آغاز میشود.
-            </p>
-            <div className="space-y-8 lg:flex lg:w-[50%] lg:max-w-107.5 lg:flex-col xl:max-w-125!">
-              <p className="leading-loose">
-                در اینجا، با ارائه خدمات روان‌درمانی و مشاوره، همراه شما هستیم تا با آرامش و اطمینان
-                بیشتری با چالش‌های زندگی روبه‌رو شوید. در کنار هم، شناخت عمیق‌تری از خود به دست
-                می‌آوریم، سلامت روان را تقویت می‌کنیم و گام‌به‌گام مسیر رسیدن به تغییرات پایدار را
-                طی می‌کنیم؛ با سرعتی که برای شما مناسب است.
-              </p>
-              <PrimaryButton className="w-max text-base!">شروع داستان خود</PrimaryButton>
-            </div>
-          </div>
-        </div>
-        <div
-          ref={toggleSwitchContainer}
-          className="flex items-center justify-center text-center md:h-screen md:max-h-180"
-        >
-          <div className="relative z-5 flex flex-col items-center gap-6 pt-20 md:p-0">
-            <label id="switchWrapper" className="flex items-center gap-5">
-              <p id="switchLabel" className="-translate-x-14 text-white opacity-0">
-                تعادل
-              </p>
-              <div
-                className="size-6 -translate-x-1.5 rounded-full bg-white"
-                id="fakeSwitchHandle"
-              ></div>
-              <div id="switchButton" className="translate-x-16.5 opacity-0">
-                <Checkbox
-                  disabled={isCheckboxDisabled}
-                  checked={isChecked}
-                  onChange={onCheckedChange}
-                />
-              </div>
-            </label>
-            <p className="text-4xl leading-relaxed text-white lg:text-[42px]">
-              کاش پیدا کردن تعادل <br className="hidden sm:block" />
-              به سادگی زدن یک کلید بود.
-            </p>
-            <p className="text-white">
-              گاهی فقط یک قدم، کافی‌ست تا همه‌چیز <br />
-              روشن‌تر به نظر برسد.
-            </p>
-          </div>
-        </div>
-      </div>
       <div id="lineContainer" className="absolute z-1 hidden w-full items-start md:flex">
         <svg
           className="absolute"
@@ -175,7 +136,7 @@ export default function Home() {
         </svg>
       </div>
       <div
-        className="relative flex h-screen max-h-225 max-w-full items-end justify-center"
+        className="relative flex h-[130vh] max-h-300 max-w-full items-end justify-center"
         id="imgContainer"
       >
         <div
@@ -184,8 +145,64 @@ export default function Home() {
         ></div>
         <div
           id="img2"
-          className="absolute inset-0 h-screen w-full bg-[url(/images/banner-2.jpg)] bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 h-[130vh] w-full bg-[url(/images/banner-2.jpg)] bg-cover bg-center bg-no-repeat"
         ></div>
+      </div>
+      <div className="absolute inset-0 z-2 container">
+        <div
+          ref={bannerTextContainer}
+          className="flex h-screen max-h-210 items-center justify-center text-white md:max-h-200"
+        >
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-20 lg:pt-40 xl:gap-0!">
+            <p className="font-secondary text-6xl leading-tight min-[480px]:text-7xl min-[1200px]:text-8xl! min-[1440px]:text-[110px]! lg:w-[50%] lg:text-[85px]">
+              هر تغییر بزرگی، <br className="hidden lg:block" /> از یک قدم آغاز میشود.
+            </p>
+            <div className="space-y-8 lg:flex lg:w-[50%] lg:max-w-107.5 lg:flex-col xl:max-w-125!">
+              <p className="leading-loose">
+                در اینجا، با ارائه خدمات روان‌درمانی و مشاوره، همراه شما هستیم تا با آرامش و اطمینان
+                بیشتری با چالش‌های زندگی روبه‌رو شوید. در کنار هم، شناخت عمیق‌تری از خود به دست
+                می‌آوریم، سلامت روان را تقویت می‌کنیم و گام‌به‌گام مسیر رسیدن به تغییرات پایدار را
+                طی می‌کنیم؛ با سرعتی که برای شما مناسب است.
+              </p>
+              <PrimaryButton className="w-max text-base!">شروع داستان خود</PrimaryButton>
+            </div>
+          </div>
+        </div>
+        <div id="toggleSwitchWrapper">
+          <div
+            ref={toggleSwitchContainer}
+            className="flex items-center justify-center text-center md:h-screen md:max-h-180"
+          >
+            <div>
+              <div className="relative z-5 flex flex-col items-center gap-6 pt-20 md:p-0">
+                <label id="switchWrapper" className="flex items-center gap-5">
+                  <p id="switchLabel" className="-translate-x-14 text-white opacity-0">
+                    تعادل
+                  </p>
+                  <div
+                    className="size-6 -translate-x-1.5 rounded-full bg-white"
+                    id="fakeSwitchHandle"
+                  ></div>
+                  <div id="switchButton" className="translate-x-16.5 opacity-0">
+                    <Checkbox
+                      disabled={isCheckboxDisabled}
+                      checked={isChecked}
+                      onChange={onCheckedChange}
+                    />
+                  </div>
+                </label>
+                <p className="text-4xl leading-relaxed text-white lg:text-[42px]">
+                  کاش پیدا کردن تعادل <br className="hidden sm:block" />
+                  به سادگی زدن یک کلید بود.
+                </p>
+                <p className="text-white">
+                  گاهی فقط یک قدم، کافی‌ست تا همه‌چیز <br />
+                  روشن‌تر به نظر برسد.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
