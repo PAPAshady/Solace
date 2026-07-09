@@ -3,23 +3,34 @@ import { useRef, useState } from 'react';
 
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+import clsx from 'clsx';
 
 import PrimaryButton from '@modules/PrimaryButton/PrimaryButton';
 import Checkbox from '@modules/Checkbox/Checkbox';
 
-gsap.registerPlugin(useGSAP);
+gsap.registerPlugin(useGSAP, ScrollToPlugin);
 
 export default function Home() {
   const container = useRef(null);
   const bannerTextContainer = useRef(null);
   const toggleSwitchContainer = useRef(null);
+  const toggleTrigger = useRef(null);
   const [isCheckboxDisabled, setIsCheckboxDisabled] = useState(true);
   const [isChecked, setIsChecked] = useState(false);
 
-  const onCheckedChange = (value) => setIsChecked(value);
+  const onCheckedChange = (checked) => {
+    setIsChecked(checked);
+    gsap.to(window, {
+      scrollTo: checked ? toggleTrigger.current.end : toggleTrigger.current.start,
+      duration: 0.5,
+      ease: 'circ.inOut',
+    });
+  };
 
   useGSAP(
     () => {
+      // timeline to cross-fade images on scroll
       const imgTl = gsap.timeline({
         scrollTrigger: {
           trigger: '#imgContainer',
@@ -30,13 +41,13 @@ export default function Home() {
           markers: false,
         },
       });
-
       // cross-fade images as user scrolss
       imgTl
         .to('#img1', { opacity: 0, duration: 1 })
         .to(bannerTextContainer.current, { y: -150 }, 0.5)
         .to(toggleSwitchContainer.current, { y: 20 });
 
+      // timeline to animate checkbox and its lable when user scrolls to the banner bottom section
       const toggleSwitchTl = gsap.timeline({
         scrollTrigger: {
           trigger: '#switchWrapper',
@@ -48,25 +59,43 @@ export default function Home() {
           onEnterBack: () => setIsCheckboxDisabled(true),
         },
       });
+      toggleSwitchTl
+        .to('#switchLabel', { x: -32, opacity: 1, ease: 'power1.inOut' })
+        .to('#switchButton', { x: 16, opacity: 1, ease: 'power1.inOut' }, 0)
+        .to('#fakeSwitchHandle', { x: -57, ease: 'power1.inOut' }, 0)
+        .to('#fakeSwitchHandle', { opacity: 0 }); // hide fakeSwitchHandle after animation is completed.
 
-      gsap.timeline({
+      // timeline to control the background change (to white) when user reaches the end of banner (wether by togglig the checkbox or scrolling)
+      const toggleTl = gsap.timeline({ paused: true });
+      toggleTl
+        .to('#img2', { opacity: 0, duration: 0.5 })
+        .to('#whiteBackground', { opacity: 1, duration: 0.5 }, '<')
+        .to('#firstText', { opacity: 0 }, '<')
+        .to('#secondText', { opacity: 1 });
+
+      // toggle checkbox and controll section animation for the bottom section of banner
+      const bottomSectionTl = gsap.timeline({
         scrollTrigger: {
           trigger: '#toggleSwitchWrapper',
           start: 'center center',
           end: `${window.innerWidth <= 768 ? 'bottom+=170' : 'bottom+=100'} center`,
           pin: true,
-          pinSpacing: false,
-          markers: true,
-          onLeave: () => setIsChecked(true),
-          onEnterBack: () => setIsChecked(false),
+          markers: false,
+          onLeave: () => {
+            setIsChecked(true);
+            toggleTl.play();
+          },
+          onEnterBack: () => {
+            setIsChecked(false);
+            toggleTl.reverse();
+          },
         },
       });
 
-      toggleSwitchTl
-        .to('#switchLabel', { x: -32, opacity: 1, ease: 'power1.inOut' })
-        .to('#switchButton', { x: 16, opacity: 1, ease: 'power1.inOut' }, 0)
-        .to('#fakeSwitchHandle', { x: -57, ease: 'power1.inOut' }, 0);
+      // store the scrollTriger so we control bottom section animation when user interacts with the checkbox it self.
+      toggleTrigger.current = bottomSectionTl.scrollTrigger;
 
+      // timeline to controll line drawing
       const lineTl = gsap.timeline({
         scrollTrigger: {
           trigger: toggleSwitchContainer.current,
@@ -76,7 +105,6 @@ export default function Home() {
           markers: false,
         },
       });
-
       // draw the line as user scrolls and fade it away at the end.
       lineTl
         .to(['#line-1', '#line-2'], {
@@ -90,7 +118,7 @@ export default function Home() {
       const textContainerHeight = bannerTextContainer.current.scrollHeight;
       const toggleContainerHeight = toggleSwitchContainer.current.scrollHeight;
       gsap.set('#lineContainer', {
-        height: textContainerHeight + toggleContainerHeight / 2 - 140,
+        height: textContainerHeight + toggleContainerHeight / 2 - 180,
       });
     },
     { scope: container }
@@ -136,8 +164,8 @@ export default function Home() {
         </svg>
       </div>
       <div
-        className="relative flex h-[130vh] max-h-300 max-w-full items-end justify-center"
         id="imgContainer"
+        className="relative flex h-[130vh] max-h-300 max-w-full items-end justify-center"
       >
         <div
           id="img1"
@@ -146,7 +174,9 @@ export default function Home() {
         <div
           id="img2"
           className="absolute inset-0 h-[130vh] w-full bg-[url(/images/banner-2.jpg)] bg-cover bg-center bg-no-repeat"
-        ></div>
+        >
+          <div id="whiteBackground" className="absolute inset-0 size-full bg-white opacity-0"></div>
+        </div>
       </div>
       <div className="absolute inset-0 z-2 container">
         <div
@@ -174,10 +204,16 @@ export default function Home() {
             className="flex items-center justify-center text-center md:h-screen md:max-h-180"
           >
             <div>
-              <div className="relative z-5 flex flex-col items-center gap-6 pt-20 md:p-0">
+              <div className="z-5 flex flex-col items-center gap-6 pt-20 md:p-0">
                 <label id="switchWrapper" className="flex items-center gap-5">
-                  <p id="switchLabel" className="-translate-x-14 text-white opacity-0">
-                    تعادل
+                  <p
+                    id="switchLabel"
+                    className={clsx(
+                      '-translate-x-14 opacity-0 transition-colors duration-500',
+                      isChecked ? 'text-black' : 'text-white'
+                    )}
+                  >
+                    آرامش
                   </p>
                   <div
                     className="size-6 -translate-x-1.5 rounded-full bg-white"
@@ -191,14 +227,32 @@ export default function Home() {
                     />
                   </div>
                 </label>
-                <p className="text-4xl leading-relaxed text-white lg:text-[42px]">
-                  کاش پیدا کردن تعادل <br className="hidden sm:block" />
-                  به سادگی زدن یک کلید بود.
-                </p>
-                <p className="text-white">
-                  گاهی فقط یک قدم، کافی‌ست تا همه‌چیز <br />
-                  روشن‌تر به نظر برسد.
-                </p>
+                <div className="relative min-h-67.5">
+                  <div id="firstText" className="space-y-6">
+                    <p className="text-4xl leading-relaxed text-white lg:text-[42px]">
+                      کاش پیدا کردن آرامش <br className="hidden sm:block" />
+                      به سادگی زدن یک کلید بود.
+                    </p>
+                    <p className="text-white">
+                      گاهی فقط یک قدم، کافی‌ست تا همه‌چیز <br />
+                      روشن‌تر به نظر برسد.
+                    </p>
+                  </div>
+                  <div
+                    id="secondText"
+                    className="absolute top-0 left-1/2 -translate-x-1/2 space-y-6 opacity-0"
+                  >
+                    <p className="text-4xl leading-relaxed text-black sm:whitespace-nowrap lg:text-[42px]">
+                      شاید کلیدی در کار نباشد، <br className="hidden sm:block" />
+                      <span className="text-primary">اما مسیر مشخصی وجود دارد.</span>
+                    </p>
+                    <p className="text-paragraph">
+                      مسیر هر فرد متفاوت است. ما با خدمات زیر کمک میکنیم{' '}
+                      <br className="hidden min-[400px]:block" /> با اطمینان بیشتری به مسیر خود
+                      ادامه دهید.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
