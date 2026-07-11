@@ -1,6 +1,7 @@
 import Banner from '@templates/index/Banner';
 import Services from '@templates/index/Services';
 import AboutUs from '@templates/index/AboutUs';
+import Customers from '@templates/index/Customers';
 
 export default function page() {
   return (
@@ -9,6 +10,7 @@ export default function page() {
       <div className="space-y-25 pb-16 lg:space-y-50">
         <Services />
         <AboutUs />
+        <Customers />
       </div>
     </>
   );
