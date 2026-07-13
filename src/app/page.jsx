@@ -13,6 +13,7 @@ export default function page() {
         <AboutUs />
         <Customers />
         <HowItWorks />
+        <div className="h-screen"></div>
       </div>
     </>
   );
