@@ -32,7 +32,7 @@ export default function Quote() {
   return (
     <div
       ref={container}
-      className="relative flex h-screen items-center justify-center bg-[#fafafa] min-[480px]:h-[75vh] lg:h-screen"
+      className="relative flex h-screen items-center justify-center bg-[#fafafa] min-[480px]:h-[60vh] lg:h-screen"
     >
       <div className="absolute inset-0 size-full">
         <Image
