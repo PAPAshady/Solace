@@ -5,7 +5,7 @@ import { journals } from '@/data';
 export default function Journal() {
   return (
     <div className="container">
-      <div className="space-y-12">
+      <div className="space-y-8">
         <div className="space-y-7.5 text-center">
           <div className="flex flex-col items-center gap-6">
             <div className="size-16">
