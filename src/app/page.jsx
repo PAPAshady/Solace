@@ -5,6 +5,7 @@ import Customers from '@templates/index/Customers';
 import HowItWorks from '@templates/index/HowItWorks';
 import Plans from '@templates/index/Plans/Plans';
 import Quote from '@templates/index/Quote';
+import Journal from '@templates/index/Journal';
 import { customers } from '@/data';
 
 export default function page() {
@@ -29,6 +30,7 @@ export default function page() {
           description={customers[1].description}
           images={customers[1].images}
         />
+        <Journal />
       </div>
     </>
   );
