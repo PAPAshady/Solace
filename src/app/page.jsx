@@ -8,6 +8,7 @@ import Quote from '@templates/index/Quote';
 import Journal from '@templates/index/Journal';
 import Stats from '@templates/index/Stats';
 import FAQ from '@templates/index/FAQ';
+import BookSession from '@templates/index/BookSession';
 import { customers } from '@/data';
 
 export default function page() {
@@ -37,6 +38,7 @@ export default function page() {
           <Stats />
           <FAQ />
         </div>
+        <BookSession />
       </div>
     </>
   );

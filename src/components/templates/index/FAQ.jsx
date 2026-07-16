@@ -5,7 +5,7 @@ import { FAQs } from '@/data';
 export default function FAQ() {
   return (
     <div className="bg-[#fafafa]">
-      <div className="container pb-20 lg:pb-40">
+      <div className="container pb-20 lg:pb-30">
         <div className="flex flex-col gap-12 md:flex-row">
           <div className="relative text-center md:flex md:w-[40%] md:flex-col md:justify-between md:text-start">
             <div className="space-y-6 min-[1200px]:mb-38! md:sticky md:top-[calc(50vh-84px)] md:mb-46">
