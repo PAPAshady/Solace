@@ -126,6 +126,33 @@ export default function Banner() {
         })
         .to(['#line-1', '#line-2'], { opacity: 0 }, 0.9);
 
+      // initial animations
+      gsap.fromTo(
+        '#slogan span',
+        {
+          opacity: 0,
+          y: 30,
+          filter: 'blur(5px)',
+        },
+        { opacity: 1, y: 0, filter: 'blur(0px)', stagger: 0.17, duration: 1.65 }
+      );
+      gsap.fromTo(
+        '#description',
+        {
+          opacity: 0,
+          y: -30,
+        },
+        { opacity: 1, y: 0, duration: 1, delay: 0.8 }
+      );
+      gsap.fromTo(
+        '#cta',
+        {
+          opacity: 0,
+          y: 30,
+        },
+        { opacity: 1, y: 0, duration: 1, delay: 0.8 }
+      );
+
       // calculate the height of line contianer dynamically so the tip of the line always end at top of the toggle button section. no matter what is the viewport height.
       const updateLineHeight = () => {
         const textContainerHeight = bannerTextContainer.current.scrollHeight;
@@ -205,17 +232,31 @@ export default function Banner() {
           className="flex h-screen max-h-210 items-center justify-center text-white md:max-h-200"
         >
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between lg:gap-20 lg:pt-40 xl:gap-0!">
-            <p className="font-secondary text-6xl leading-tight min-[480px]:text-7xl min-[1200px]:text-8xl! min-[1440px]:text-[110px]! lg:w-[50%] lg:text-[85px]">
-              هر تغییر بزرگی، <br className="hidden lg:block" /> از یک قدم آغاز میشود.
+            <p
+              id="slogan"
+              className="font-secondary text-6xl leading-tight whitespace-pre-wrap min-[480px]:text-7xl min-[1200px]:text-8xl! min-[1440px]:text-[110px]! lg:w-[50%] lg:text-[85px]"
+            >
+              <span className="inline-block">هر </span>
+              <span className="inline-block">تغییر </span>
+              <span className="inline-block">بزرگی، </span>
+              <br className="hidden lg:block" />
+              <span className="inline-block">از </span>
+              <span className="inline-block">یک </span>
+              <span className="inline-block">قدم </span>
+              <span className="inline-block">آغاز </span>
+              <span className="inline-block">میشود.</span>
+              {/* هر تغییر بزرگی، <br className="hidden lg:block" /> از یک قدم آغاز میشود. */}
             </p>
             <div className="space-y-8 lg:flex lg:w-[50%] lg:max-w-107.5 lg:flex-col xl:max-w-125!">
-              <p className="leading-loose">
+              <p className="leading-loose" id="description">
                 در اینجا، با ارائه خدمات روان‌درمانی و مشاوره، همراه شما هستیم تا با آرامش و اطمینان
                 بیشتری با چالش‌های زندگی روبه‌رو شوید. در کنار هم، شناخت عمیق‌تری از خود به دست
                 می‌آوریم، سلامت روان را تقویت می‌کنیم و گام‌به‌گام مسیر رسیدن به تغییرات پایدار را
                 طی می‌کنیم.
               </p>
-              <PrimaryButton className="w-max text-base!">شروع داستان خود</PrimaryButton>
+              <div id="cta">
+                <PrimaryButton className="text-base!">شروع داستان خود</PrimaryButton>
+              </div>
             </div>
           </div>
         </div>
