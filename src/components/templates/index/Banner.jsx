@@ -4,6 +4,7 @@ import { useRef, useState } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import clsx from 'clsx';
 
 import PrimaryButton from '@modules/PrimaryButton/PrimaryButton';
@@ -36,10 +37,12 @@ export default function Banner() {
         scrollTrigger: {
           trigger: '#imgContainer',
           start: 'top top',
-          end: `bottom ${window.innerWidth > 767 || window.innerHeight > 900 ? 'top' : '180'}`,
+          end: () =>
+            `bottom ${window.innerWidth > 767 || window.innerHeight > 900 ? 'top' : '180'}`,
           scrub: true,
           pin: true,
           markers: false,
+          invalidateOnRefresh: true,
         },
       });
       // cross-fade images as user scrolss
@@ -124,11 +127,20 @@ export default function Banner() {
         .to(['#line-1', '#line-2'], { opacity: 0 }, 0.9);
 
       // calculate the height of line contianer dynamically so the tip of the line always end at top of the toggle button section. no matter what is the viewport height.
-      const textContainerHeight = bannerTextContainer.current.scrollHeight;
-      const toggleContainerHeight = toggleSwitchContainer.current.scrollHeight;
-      gsap.set('#lineContainer', {
-        height: textContainerHeight + toggleContainerHeight / 2 - 180,
-      });
+      const updateLineHeight = () => {
+        const textContainerHeight = bannerTextContainer.current.scrollHeight;
+        const toggleContainerHeight = toggleSwitchContainer.current.scrollHeight;
+        gsap.set('#lineContainer', {
+          height: textContainerHeight + toggleContainerHeight / 2 - 180,
+        });
+      };
+
+      updateLineHeight();
+      ScrollTrigger.addEventListener('refreshInit', updateLineHeight);
+
+      return () => {
+        ScrollTrigger.removeEventListener('refreshInit', updateLineHeight);
+      };
     },
     { scope: container }
   );

@@ -15,13 +15,14 @@ export default function Quote() {
     () => {
       if (window.innerWidth >= 1024) {
         gsap.to(['#line1', '#line2'], {
-          strokeDashoffset: window.innerHeight >= 1024 ? 650 : 990,
+          strokeDashoffset: () => (window.innerHeight >= 1024 ? 650 : 990),
           scrollTrigger: {
             trigger: container.current,
             start: `top-=10% center`,
             end: 'bottom+=45% center-=100',
             markers: false,
             scrub: 1.3,
+            invalidateOnRefresh: true,
           },
         });
 
