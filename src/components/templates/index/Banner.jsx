@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 import { useRef, useState } from 'react';
 
 import gsap from 'gsap';
@@ -215,10 +216,15 @@ export default function Banner() {
         id="imgContainer"
         className="relative flex h-[130vh] max-h-320 max-w-full items-end justify-center"
       >
-        <div
+        <Image
           id="img1"
-          className="absolute inset-0 z-1 flex h-screen w-full items-center justify-between bg-[url(/images/banner.jpg)] bg-cover bg-top bg-no-repeat"
-        ></div>
+          width={3600}
+          height={3200}
+          alt=""
+          src="/images/banner.jpg"
+          className="absolute inset-0 z-1 flex h-screen w-full items-center justify-between object-cover object-top"
+          preload
+        />
         <div
           id="img2"
           className="absolute inset-0 size-full bg-[url(/images/banner-2.jpg)] bg-cover bg-center bg-no-repeat"
