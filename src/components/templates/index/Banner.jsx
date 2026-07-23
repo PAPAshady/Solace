@@ -228,8 +228,17 @@ export default function Banner() {
         />
         <div
           id="img2"
-          className="absolute inset-0 size-full bg-[url(/images/banner-2.jpg)] bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 size-full bg-[url(/images/banner-2.webp)] bg-cover bg-center bg-no-repeat"
         >
+          <Image
+            width={2048}
+            height={2048}
+            alt=""
+            unoptimized
+            src="/images/banner2.webp"
+            className="size-full object-cover"
+            preload
+          />
           <div id="whiteBackground" className="absolute inset-0 size-full bg-white opacity-0"></div>
         </div>
       </div>
