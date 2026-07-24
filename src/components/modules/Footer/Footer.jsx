@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useRef } from 'react';
 
 import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import Input from '@modules/Input/Input';
 import PrimaryButton from '@modules/PrimaryButton/PrimaryButton';
@@ -17,16 +17,14 @@ export default function Footer() {
     () => {
       const setDark = () => setTheme('dark');
       const setLight = () => setTheme('light');
-      gsap.to(container.current, {
-        scrollTrigger: {
-          trigger: container.current,
-          start: 'top top',
-          end: 'bottom top',
-          onEnter: setLight,
-          onLeave: setDark,
-          onLeaveBack: setDark,
-          onEnterBack: setLight,
-        },
+      ScrollTrigger.create({
+        trigger: container.current,
+        start: 'top top',
+        end: 'bottom top',
+        onEnter: setLight,
+        onLeave: setDark,
+        onLeaveBack: setDark,
+        onEnterBack: setLight,
       });
     },
     { scope: container }
