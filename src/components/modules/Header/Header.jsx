@@ -7,6 +7,7 @@ import gsap from 'gsap';
 
 import PrimaryButton from '@modules/PrimaryButton/PrimaryButton';
 import { navLinks } from '@/data';
+import { setTheme } from '@/utils';
 
 export default function Header() {
   const headerRef = useRef(null);
@@ -60,7 +61,9 @@ export default function Header() {
         </div>
         <PrimaryButton className="lg:hidden">منو</PrimaryButton>
         <div className="hidden lg:block" id="bookSessionBtn">
-          <PrimaryButton href="/book-session">دریافت نوبت</PrimaryButton>
+          <PrimaryButton onClick={() => setTheme('dark')} href="/book-session">
+            دریافت نوبت
+          </PrimaryButton>
         </div>
       </div>
     </header>
