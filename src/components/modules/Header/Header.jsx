@@ -8,7 +8,6 @@ import gsap from 'gsap';
 
 import PrimaryButton from '@modules/PrimaryButton/PrimaryButton';
 import { navLinks } from '@/data';
-import { setTheme } from '@/utils';
 
 export default function Header() {
   const headerRef = useRef(null);
@@ -23,13 +22,13 @@ export default function Header() {
         gsap.fromTo(
           '#navLink',
           { opacity: 0, y: 25 },
-          { opacity: 1, y: 0, duration: 0.6, delay: 1.5, stagger: 0.1 }
+          { opacity: 1, y: 0, duration: 0.6, delay: 1, stagger: 0.1 }
         );
       });
 
       return () => mm.revert();
     },
-    { scope: headerRef }
+    { scope: headerRef, dependencies: [pathname] }
   );
 
   return (
