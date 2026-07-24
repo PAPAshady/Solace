@@ -9,7 +9,7 @@ export default function Stats() {
   return (
     <div className="bg-[#fafafa]">
       <div className="container flex flex-col">
-        <div className="flex flex-col gap-9.5 py-20 md:flex-row md:items-center md:gap-18 lg:py-40">
+        <div className="flex flex-col gap-9.5 pt-20 md:flex-row md:items-center md:gap-18 lg:pt-40">
           <h2 className="text-4xl leading-snug whitespace-pre-wrap md:w-1/2">
             <span>این آمار، نتیجه تجربه ما در همراهی مراجعان در مسیر روان‌درمانی و </span>
             <span className="text-primary">ایجاد تغییرات ماندگار </span>

@@ -7,8 +7,8 @@ import Plans from '@templates/index/Plans/Plans';
 import Quote from '@templates/index/Quote';
 import Journal from '@templates/index/Journal';
 import Stats from '@templates/index/Stats';
-import FAQ from '@templates/index/FAQ';
-import BookSession from '@templates/index/BookSession';
+import FAQ from '@templates/shared/FAQ';
+import BookSession from '@templates/shared/BookSession';
 import { customers } from '@/data';
 
 export default function page() {

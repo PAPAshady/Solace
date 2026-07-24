@@ -44,6 +44,7 @@ export default function Banner() {
           pin: true,
           markers: false,
           invalidateOnRefresh: true,
+          onEnter: () => setTheme('light'),
         },
       });
       // cross-fade images as user scrolss
@@ -271,7 +272,9 @@ export default function Banner() {
                 طی می‌کنیم.
               </p>
               <div id="cta">
-                <PrimaryButton className="text-base!">شروع داستان خود</PrimaryButton>
+                <PrimaryButton className="text-base!" href="/book-session">
+                  شروع داستان خود
+                </PrimaryButton>
               </div>
             </div>
           </div>

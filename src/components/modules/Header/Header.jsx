@@ -33,7 +33,7 @@ export default function Header() {
     <header
       ref={headerRef}
       id="header"
-      data-theme="light"
+      data-theme="dark"
       className="group/header sticky top-0 left-0 z-10 w-full lg:fixed"
     >
       <div className="absolute inset-0 hidden size-full mask-[linear-gradient(to_bottom,black_0%,black_70%,transparent_100%)] backdrop-blur-[5px] lg:block"></div>
@@ -60,7 +60,7 @@ export default function Header() {
         </div>
         <PrimaryButton className="lg:hidden">منو</PrimaryButton>
         <div className="hidden lg:block" id="bookSessionBtn">
-          <PrimaryButton>دریافت نوبت</PrimaryButton>
+          <PrimaryButton href="/book-session">دریافت نوبت</PrimaryButton>
         </div>
       </div>
     </header>
