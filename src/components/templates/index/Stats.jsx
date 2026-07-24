@@ -8,7 +8,7 @@ const stats = [
 export default function Stats() {
   return (
     <div className="bg-[#fafafa]">
-      <div className="container flex flex-col">
+      <div className="container flex flex-col gap-16 lg:gap-24">
         <div className="flex flex-col gap-9.5 pt-20 md:flex-row md:items-center md:gap-18 lg:pt-40">
           <h2 className="text-4xl leading-snug whitespace-pre-wrap md:w-1/2">
             <span>این آمار، نتیجه تجربه ما در همراهی مراجعان در مسیر روان‌درمانی و </span>
@@ -20,7 +20,7 @@ export default function Stats() {
             روان‌درمانی و کمک به ایجاد تغییرات ماندگار در سلامت روان هستند.
           </p>
         </div>
-        <div className="grid grid-cols-1 gap-16 pb-20 min-[480px]:grid-cols-2 lg:grid-cols-4 lg:pb-40">
+        <div className="grid grid-cols-1 gap-16 py-10 min-[480px]:grid-cols-2 lg:grid-cols-4">
           {stats.map((stat) => (
             <div
               key={stat.id}
