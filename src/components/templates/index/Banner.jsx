@@ -227,16 +227,13 @@ export default function Banner() {
           className="absolute inset-0 z-1 flex h-screen w-full items-center justify-between object-cover object-top"
           preload
         />
-        <div
-          id="img2"
-          className="absolute inset-0 size-full bg-[url(/images/banner-2.webp)] bg-cover bg-center bg-no-repeat"
-        >
+        <div id="img2" className="absolute inset-0 size-full">
           <Image
             width={2048}
             height={2048}
             alt=""
             unoptimized
-            src="/images/banner2.webp"
+            src="/images/banner-2.webp"
             className="size-full object-cover"
             preload
           />
@@ -272,7 +269,11 @@ export default function Banner() {
                 طی می‌کنیم.
               </p>
               <div id="cta">
-                <PrimaryButton className="text-base!" href="/book-session">
+                <PrimaryButton
+                  onClick={() => setTheme('dark')}
+                  className="text-base!"
+                  href="/book-session"
+                >
                   شروع داستان خود
                 </PrimaryButton>
               </div>
