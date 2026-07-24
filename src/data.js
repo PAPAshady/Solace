@@ -2,7 +2,7 @@ export const navLinks = [
   { id: 1, title: 'مسیر راه', href: '' },
   { id: 2, title: 'داستان ها', href: '' },
   { id: 3, title: 'خدمات', href: '' },
-  { id: 4, title: 'درباره ما', href: '' },
+  { id: 4, title: 'درباره ما', href: '/about' },
 ];
 
 export const services = [
@@ -140,7 +140,7 @@ export const FAQs = [
 
 export const footerRelatedLinks = [
   { id: 1, title: 'خانه', href: '/' },
-  { id: 2, title: 'درباره ما', href: '' },
+  { id: 2, title: 'درباره ما', href: '/about' },
   { id: 3, title: 'خدمات', href: '' },
   { id: 4, title: 'داستان ها', href: '' },
   { id: 5, title: 'مقالات', href: '' },

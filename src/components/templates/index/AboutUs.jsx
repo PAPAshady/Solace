@@ -113,7 +113,7 @@ export default function AboutUs() {
           اطمینان طی کنید. */}
         </h4>
         <div className="mx-auto max-w-30">
-          <PrimaryButton href="/about-us">درباره ما</PrimaryButton>
+          <PrimaryButton href="/about">درباره ما</PrimaryButton>
         </div>
       </div>
     </div>

@@ -37,7 +37,7 @@ export default function FAQ() {
               پاسخ سؤال خود را پیدا نکردید؟ کافی است برای ما پیام بفرستید. با دقت و شفافیت، در
               کوتاه‌ترین زمان ممکن پاسخ شما را خواهیم داد.
             </p>
-            <PrimaryButton>درباره ما</PrimaryButton>
+            <PrimaryButton href="/about">درباره ما</PrimaryButton>
           </div>
         </div>
       </div>
