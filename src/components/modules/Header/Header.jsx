@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useRef } from 'react';
 
 import { useGSAP } from '@gsap/react';
@@ -11,6 +12,7 @@ import { setTheme } from '@/utils';
 
 export default function Header() {
   const headerRef = useRef(null);
+  const pathname = usePathname();
 
   useGSAP(
     () => {
@@ -32,6 +34,7 @@ export default function Header() {
 
   return (
     <header
+      key={pathname}
       ref={headerRef}
       id="header"
       data-theme="dark"
@@ -61,9 +64,7 @@ export default function Header() {
         </div>
         <PrimaryButton className="lg:hidden">منو</PrimaryButton>
         <div className="hidden lg:block" id="bookSessionBtn">
-          <PrimaryButton onClick={() => setTheme('dark')} href="/book-session">
-            دریافت نوبت
-          </PrimaryButton>
+          <PrimaryButton href="/book-session">دریافت نوبت</PrimaryButton>
         </div>
       </div>
     </header>

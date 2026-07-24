@@ -269,11 +269,7 @@ export default function Banner() {
                 طی می‌کنیم.
               </p>
               <div id="cta">
-                <PrimaryButton
-                  onClick={() => setTheme('dark')}
-                  className="text-base!"
-                  href="/book-session"
-                >
+                <PrimaryButton className="text-base!" href="/book-session">
                   شروع داستان خود
                 </PrimaryButton>
               </div>
